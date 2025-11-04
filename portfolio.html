@@ -1,0 +1,1348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arnav Ghagare - Digital Portfolio</title>
+    
+    <!-- Google Font: Poppins -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* ============================================
+           STYLESHEET (style.css)
+           ============================================
+        */
+
+        :root {
+            --bg-color: #0f0f1a; /* Very dark blue-black */
+            --glass-color: rgba(25, 25, 40, 0.5); /* Semi-transparent dark blue */
+            --primary-color: #00f2ea; /* Vibrant Cyan/Turquoise */
+            --secondary-color: #9494b8; /* Muted lavender for text */
+            --text-color: #f0f0f5; /* Off-white */
+            --border-color: rgba(0, 242, 234, 0.2); /* Faint cyan border */
+            --card-bg-color: #19192c; /* Slightly lighter than bg */
+        }
+
+        /* --- Light Mode Variables --- */
+        body.light-mode {
+            --bg-color: #f0f4f8;
+            --glass-color: rgba(255, 255, 255, 0.6);
+            --primary-color: #007bff; /* Vibrant Blue for light mode */
+            --secondary-color: #555;
+            --text-color: #1a1a1a;
+            --border-color: rgba(0, 123, 255, 0.2);
+            --card-bg-color: #ffffff;
+        }
+
+        /* --- 0. Global Styles & Scrollbar --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            overflow-x: hidden;
+            transition: background-color 0.3s ease, color 0.3s ease; /* For theme toggle */
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--bg-color);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--primary-color);
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #00bfae;
+        }
+
+        section {
+            padding: 100px 8%;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        h1, h2, h3 {
+            font-weight: 600;
+            color: var(--text-color);
+            margin-bottom: 1.2rem;
+            transition: color 0.3s ease;
+        }
+
+        h1 { font-size: 3.5rem; }
+        h2 { font-size: 2.5rem; text-align: center; }
+        h3 { font-size: 1.5rem; color: var(--primary-color); }
+
+        p {
+            color: var(--secondary-color);
+            margin-bottom: 1rem;
+            max-width: 700px;
+            transition: color 0.3s ease;
+        }
+
+        a {
+            color: var(--primary-color);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        a:hover {
+            color: #fff;
+        }
+        /* Light mode hover for 'a' tags */
+        body.light-mode a:hover {
+            color: #0056b3;
+        }
+
+
+        /* --- 1. Glassmorphism & Utility Classes --- */
+        .glass {
+            background: var(--glass-color);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            transition: background 0.3s ease, border-color 0.3s ease;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 28px;
+            background: transparent;
+            border: 2px solid var(--primary-color);
+            border-radius: 8px;
+            color: var(--primary-color);
+            font-size: 1rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 10px var(--border-color);
+        }
+
+        .btn:hover {
+            background: var(--primary-color);
+            color: var(--bg-color);
+            box-shadow: 0 0 25px var(--primary-color);
+        }
+        body.light-mode .btn:hover {
+            color: #fff;
+        }
+
+
+        /* --- 2. Header / Navigation --- */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 20px 8%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 100;
+            transition: background 0.3s ease, border-color 0.3s ease;
+        }
+
+        /* Add a solid glass background on scroll */
+        .header.scrolled {
+            background: var(--glass-color);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--text-color);
+            transition: color 0.3s ease;
+        }
+
+        .logo:hover {
+            color: var(--primary-color);
+        }
+
+        .navbar {
+            display: flex;
+            align-items: center;
+        }
+
+        .navbar a {
+            font-size: 1.1rem;
+            color: var(--text-color);
+            margin-left: 35px;
+            font-weight: 400;
+            position: relative;
+        }
+
+        /* Animated underline effect */
+        .navbar a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            background: var(--primary-color);
+            bottom: -5px;
+            left: 0;
+            transition: width 0.3s ease;
+        }
+
+        .navbar a:hover::after,
+        .navbar a.active::after {
+            width: 100%;
+        }
+
+        /* --- Theme Toggle Button --- */
+        .theme-toggle {
+            font-size: 1.5rem;
+            color: var(--text-color);
+            cursor: pointer;
+            margin-left: 35px; /* Same as nav links */
+            display: flex;
+            align-items: center;
+        }
+
+        .theme-toggle svg {
+            width: 24px;
+            height: 24px;
+            fill: currentColor;
+        }
+
+        /* Hide one icon based on mode */
+        body.light-mode .theme-toggle .moon-icon {
+            display: none;
+        }
+        body:not(.light-mode) .theme-toggle .sun-icon {
+            display: none;
+        }
+
+        #menu-icon {
+            font-size: 2.5rem;
+            color: var(--text-color);
+            display: none; /* Hidden on desktop */
+            cursor: pointer;
+            margin-left: 20px;
+        }
+
+
+        /* --- 3. Hero Section --- */
+        #home {
+            flex-direction: row;
+            align-items: center;
+            justify-content: space-between;
+            min-height: 100vh;
+        }
+
+        .hero-content {
+            max-width: 600px;
+        }
+
+        .hero-content h3 {
+            font-size: 1.8rem;
+            color: var(--text-color);
+        }
+
+        .hero-content h1 {
+            font-size: 4rem;
+            line-height: 1.2;
+        }
+
+        .hero-content h1 span {
+            color: var(--primary-color);
+        }
+
+        .hero-content .btn {
+            margin-top: 1.5rem;
+        }
+
+        /* Hero Image (Placeholder) */
+        .hero-image {
+            max-width: 450px;
+        }
+        .hero-image img {
+            width: 100%;
+            border-radius: 50%;
+            box-shadow: 0 0 50px var(--primary-color);
+            border: 3px solid var(--primary-color);
+            transition: box-shadow 0.3s ease, border-color 0.3s ease;
+        }
+
+        /* --- 4. About Section --- */
+        .about-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .about-image img {
+            width: 100%;
+            border-radius: 12px;
+        }
+
+        .about-content p {
+            max-width: 100%;
+        }
+
+        .skills-list {
+            margin-top: 1rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .about-content h3 {
+            margin-top: 1.5rem;
+        }
+        .about-content h3:first-of-type {
+            margin-top: 0;
+        }
+
+        .skill-tag {
+            background: var(--glass-color);
+            border: 1px solid var(--border-color);
+            color: var(--secondary-color);
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .skill-tag:hover {
+            background: var(--primary-color);
+            color: var(--bg-color);
+            box-shadow: 0 0 10px var(--primary-color);
+            transform: translateY(-3px);
+        }
+        body.light-mode .skill-tag:hover {
+            color: #fff;
+        }
+
+
+        /* --- 5. Work Section --- */
+        .work-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .work-card {
+            overflow: hidden;
+            position: relative;
+            background: var(--card-bg-color); /* Use variable */
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .work-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+        body.light-mode .work-card:hover {
+            box-shadow: 0 10px 20px rgba(0, 123, 255, 0.15);
+        }
+
+
+        .work-card.glass {
+            background: var(--glass-color);
+        }
+
+        .work-card-image {
+            width: 100%;
+            height: 220px;
+            overflow: hidden;
+        }
+
+        .work-card-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.4s ease;
+        }
+
+        .work-card:hover .work-card-image img {
+            transform: scale(1.05);
+        }
+
+        .work-card-content {
+            padding: 1.5rem;
+        }
+
+        .work-card-content p {
+            font-size: 0.9rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .work-links a {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-right: 1.5rem;
+        }
+
+        .work-links a:hover {
+            text-decoration: underline;
+        }
+
+
+        /* --- 6. Gallery Section --- */
+        .gallery-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .gallery-item {
+            border-radius: 12px;
+            overflow: hidden;
+            cursor: pointer;
+            border: 2px solid var(--border-color);
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.4s ease;
+        }
+
+        .gallery-item:hover {
+            box-shadow: 0 0 20px var(--border-color);
+            border-color: var(--primary-color);
+            transform: translateY(-3px); /* Add lift */
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.05);
+        }
+
+        /* --- 7. Lightbox (for Gallery) --- */
+        .lightbox {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(5px);
+            z-index: 1000;
+            display: none; /* Hidden by default */
+            place-items: center;
+            padding: 20px;
+            animation: fadeIn 0.3s ease;
+        }
+
+        body.light-mode .lightbox {
+            background: rgba(255, 255, 255, 0.85);
+        }
+
+
+        .lightbox.active {
+            display: grid;
+        }
+
+        .lightbox-content {
+            position: relative;
+            max-width: 90vw;
+            max-height: 90vh;
+        }
+
+        .lightbox-content img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            border-radius: 8px;
+        }
+
+        .lightbox-close {
+            position: absolute;
+            top: -40px;
+            right: 0;
+            font-size: 3rem;
+            color: #fff;
+            cursor: pointer;
+            line-height: 1;
+        }
+        body.light-mode .lightbox-close {
+            color: #000;
+        }
+
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* --- 8. Contact Section --- */
+        .contact-container {
+            max-width: 800px;
+            margin: 2rem auto 0;
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .contact-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .contact-form .input-group {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .contact-form .input-box {
+            width: 100%;
+        }
+
+        .contact-form input,
+        .contact-form textarea {
+            width: 100%;
+            padding: 1rem;
+            background: var(--glass-color);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            color: var(--text-color);
+            font-family: 'Poppins', sans-serif;
+            font-size: 1rem;
+        }
+
+        body.light-mode .contact-form input,
+        body.light-mode .contact-form textarea {
+            background: rgba(255, 255, 255, 0.8);
+        }
+
+
+        .contact-form input::placeholder,
+        .contact-form textarea::placeholder {
+            color: var(--secondary-color);
+        }
+
+        .contact-form input:focus,
+        .contact-form textarea:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 10px var(--border-color);
+        }
+
+        .contact-form textarea {
+            resize: vertical;
+            min-height: 150px;
+        }
+
+        .contact-form .btn {
+            width: 200px;
+            margin: 0 auto;
+            cursor: pointer;
+        }
+
+        .social-links {
+            margin-top: 3rem;
+        }
+        .social-links a {
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            width: 45px;
+            height: 45px;
+            background: transparent;
+            border: 2px solid var(--primary-color);
+            border-radius: 50%;
+            font-size: 1.2rem;
+            color: var(--primary-color);
+            margin: 0 10px;
+            transition: all 0.3s ease;
+        }
+
+        .social-links a:hover {
+            background: var(--primary-color);
+            color: var(--bg-color);
+            box-shadow: 0 0 20px var(--primary-color);
+            transform: translateY(-5px);
+        }
+        body.light-mode .social-links a:hover {
+            color: #fff;
+        }
+
+
+        .social-links a svg {
+            width: 20px;
+            height: 20px;
+            fill: currentColor;
+        }
+
+        /* --- 9. Footer --- */
+        .footer {
+            padding: 30px 8%;
+            text-align: center;
+            background: var(--glass-color);
+            border-top: 1px solid var(--border-color);
+            margin-top: 50px;
+        }
+
+        .footer p {
+            color: var(--secondary-color);
+            font-size: 0.9rem;
+            margin: 0;
+        }
+        .footer p span {
+            color: var(--primary-color);
+            transition: color 0.3s ease;
+        }
+
+        /* --- 10. Scroll Animations --- */
+        .reveal {
+            position: relative;
+            opacity: 0;
+            transform: translateY(50px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* --- 11. Game Section (Memory Match) --- */
+        .game-container {
+            max-width: 500px;
+            margin: 2rem auto 0;
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .game-status {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--text-color);
+            min-height: 1.5rem; /* Reserve space for text */
+        }
+
+        .memory-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+            width: 100%;
+            aspect-ratio: 1 / 1; /* Keep it square */
+        }
+
+        .memory-card {
+            background: var(--card-bg-color); /* Dark card back */
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 2.5rem;
+            cursor: pointer;
+            perspective: 1000px;
+            transition: transform 0.6s;
+            position: relative;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            height: 100%;
+        }
+
+        /* Hover Effect for Unmatched/Unturned Cards */
+        .memory-card:not(.flipped):not(.matched):hover {
+            transform: translateY(-5px) scale(1.02);
+            border-color: var(--primary-color);
+            box-shadow: 0 8px 15px var(--border-color);
+        }
+        body.light-mode .memory-card:not(.flipped):not(.matched):hover {
+             box-shadow: 0 8px 15px rgba(0, 123, 255, 0.15);
+        }
+
+
+        /* --- CSS FIX: Apply rotation to the inner card, not the outer container --- */
+        .memory-card.flipped .card-inner,
+        .memory-card.matched .card-inner {
+            transform: rotateY(180deg);
+        }
+        
+        /* Still disable pointer events on the outer card if it's flipped/matched */
+        .memory-card.flipped, .memory-card.matched {
+            pointer-events: none; 
+        }
+        /* --- END CSS FIX --- */
+
+        
+        /* The inner container holds the front and back face */
+        .card-inner {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            transition: transform 0.6s;
+            transform-style: preserve-3d;
+        }
+
+        .card-front, .card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden; /* Important for the flip effect */
+            border-radius: 8px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: 700;
+            font-size: 2.5rem;
+        }
+
+        .card-back {
+            background: var(--card-bg-color);
+            color: var(--text-color);
+            transform: rotateY(0deg);
+            font-size: 1.5rem; /* Smaller text for the '?' */
+        }
+
+        .card-front {
+            background: var(--glass-color); /* Lighter background for the revealed face */
+            color: var(--primary-color);
+            transform: rotateY(180deg);
+        }
+
+        .memory-card.matched .card-front {
+             /* Subtle visual change for matched cards */
+            background-color: var(--primary-color);
+            color: var(--bg-color);
+        }
+        
+        .game-reset {
+            margin-top: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* --- 12. Responsiveness (Mobile-First) --- */
+
+        @media (max-width: 992px) {
+            h1 { font-size: 3rem; }
+            .hero-content h1 { font-size: 3.5rem; }
+            
+            #home {
+                flex-direction: column;
+                justify-content: center;
+                text-align: center;
+                padding-top: 150px; /* Add padding for nav */
+            }
+            .hero-image {
+                margin-top: 3rem;
+                max-width: 350px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            #menu-icon {
+                display: block;
+            }
+            
+            .theme-toggle {
+                margin-left: 10px; /* Adjust spacing on mobile */
+            }
+
+            .navbar {
+                position: absolute;
+                top: 100%;
+                left: -100%; /* Start off-screen */
+                width: 100%;
+                padding: 1rem 8%;
+                background: var(--glass-color);
+                backdrop-filter: blur(10px);
+                border-bottom: 1px solid var(--border-color);
+                transition: left 0.4s ease;
+                
+                /* Must be on top of theme toggle when open */
+                z-index: 1;
+            }
+            
+            .navbar.active {
+                left: 0;
+            }
+
+            .navbar a {
+                display: block;
+                font-size: 1.2rem;
+                margin: 2rem 0;
+                margin-left: 0; /* Reset margin for mobile */
+            }
+            
+            .about-container {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+            .about-image {
+                max-width: 400px;
+                margin: 0 auto 2rem;
+            }
+            
+            .skills-list {
+                justify-content: center;
+            }
+            
+            .contact-form .input-group {
+                flex-direction: column;
+                gap: 0; /* Remove gap */
+            }
+            
+            .contact-form .input-box {
+                margin-bottom: 1.5rem; /* Add margin for spacing */
+            }
+
+            .memory-grid {
+                 /* Adjust grid size for better fit on small screens */
+                gap: 8px;
+            }
+            .card-front, .card-back {
+                font-size: 2rem;
+            }
+        }
+    </style>
+
+</head>
+<body>
+
+    <!-- Header -->
+    <header class="header">
+        <a href="#home" class="logo">Arnav Ghagare</a>
+
+        <!-- Mobile Menu Icon (SVG) -->
+        <div id="menu-icon">
+             <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" fill="currentColor" viewBox="0 0 16 16">
+                <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5"/>
+            </svg>
+        </div>
+
+        <nav class="navbar">
+            <a href="#home" class="active">Home</a>
+            <a href="#about">About</a>
+            <a href="#work">Work</a>
+            <a href="#gallery">Gallery</a>
+            <a href="#game">Game</a>
+            <a href="#contact">Contact</a>
+        </nav>
+        
+        <!-- Theme Toggle Button -->
+        <div class="theme-toggle" id="theme-toggle" title="Toggle theme">
+            <!-- Sun Icon -->
+            <svg class="sun-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2.25a.75.75 0 0 1 .75.75v2.25a.75.75 0 0 1-1.5 0V3a.75.75 0 0 1 .75-.75ZM7.5 12a4.5 4.5 0 1 1 9 0 4.5 4.5 0 0 1-9 0ZM18.899 5.101a.75.75 0 0 1 1.06 1.06l-1.59 1.59a.75.75 0 0 1-1.06-1.06l1.59-1.59ZM21.75 12a.75.75 0 0 1-.75.75h-2.25a.75.75 0 0 1 0-1.5h2.25a.75.75 0 0 1 .75.75ZM17.839 17.839a.75.75 0 0 1 1.06 1.06l-1.59 1.59a.75.75 0 1 1-1.06-1.06l1.59-1.59ZM12 21.75a.75.75 0 0 1-.75-.75v-2.25a.75.75 0 0 1 1.5 0V21a.75.75 0 0 1-.75.75ZM5.101 18.899a.75.75 0 0 1-1.06-1.06l1.59-1.59a.75.75 0 1 1 1.06 1.06l-1.59 1.59ZM2.25 12a.75.75 0 0 1 .75-.75h2.25a.75.75 0 0 1 0 1.5H3a.75.75 0 0 1-.75-.75ZM6.161 6.161a.75.75 0 0 1-1.06-1.06l1.59-1.59a.75.75 0 0 1 1.06 1.06l-1.59 1.59Z"/></svg>
+            <!-- Moon Icon -->
+            <svg class="moon-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M11.99 1.99c-5.523 0-10.001 4.478-10.001 10.001s4.478 10.001 10.001 10.001 10.001-4.478 10.001-10.001c-.001-4.512-3.006-8.35-7.12-9.664a.75.75 0 0 0-.872.868.75.75 0 0 0 .868.872A8.501 8.501 0 1 1 3.499 12.001a8.5 8.5 0 0 1 8.491-8.132.75.75 0 0 0-.872-.868.75.75 0 0 0-.868-.872A.75.75 0 0 0 11.99 1.99Z"/></svg>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+
+        <!-- Home/Hero Section -->
+        <section id="home">
+            <div class="hero-content reveal">
+                <h3>Hello, I am</h3>
+                <h1>Arnav Ghagare</h1>
+                <h3>And I'm a <span class="typing-text"></span></h3>
+                <p>I build exceptional and accessible digital experiences. I'm passionate about creative design, clean code, and bringing ideas to life on the web.</p>
+                <a href="#work" class="btn">View My Work</a>
+            </div>
+            
+            <div class="hero-image reveal">
+                <!-- Placeholder for your photo -->
+                <img src="C:\Users\gamer\OneDrive\Pictures\Portfolio\WhatsApp Image 2025-10-31 at 11.15.39 PM.jpeg" alt="Arnav Ghagare">
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about">
+            <h2 class="reveal">About <span>Me</span></h2>
+            <div class="about-container">
+                <div class="about-image reveal">
+                    <!-- Placeholder for another photo -->
+                    <img src="C:\Users\gamer\OneDrive\Pictures\Portfolio\WhatsApp Image 2025-11-01 at 12.01.14 AM.jpeg" alt="Me working">
+                </div>
+                <div class="about-content reveal">
+                    <h3>My Story</h3>
+                    <p>I'm a developer and designer with a passion for creating beautiful, functional, and user centered digital experiences. I'm a lifelong learner, always excited to dive into new technologies and frameworks.</p>
+                    <p>From a simple idea to a full fledged web application, I love the entire creation process. When I'm not coding, you can find me exploring nature or learning about game designing.</p>
+                    
+                    <h3>Technical Skills</h3>
+                    <div class="skills-list">
+                        <span class="skill-tag">HTML</span>
+                       
+                        <span class="skill-tag">JavaScript</span>
+                        
+                        <span class="skill-tag">Node.js</span>
+                        
+                        <span class="skill-tag">Web Accessibility</span>
+                        <span class="skill-tag">Git & GitHub</span>
+                    </div>
+                    
+                    <h3>Soft Skills</h3>
+                    <div class="skills-list">
+                        <span class="skill-tag">Problem Solving</span>
+                        <span class="skill-tag">Communication</span>
+                        <span class="skill-tag">Teamwork</span>
+                        <span class="skill-tag">Creativity</span>
+                        <span class="skill-tag">Adaptability</span>
+                        <span class="skill-tag">Critical Thinking</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Work Section -->
+        <section id="work">
+            <h2 class="reveal">Latest <span>Projects</span></h2>
+            <div class="work-container">
+                
+                <!-- Project 1 -->
+                <div class="work-card glass reveal">
+                    <div class="work-card-image">
+                        <img src="C:\Users\gamer\OneDrive\Pictures\Screenshots\Calculator.jpg" alt="Project 1">
+                    </div>
+                    <div class="work-card-content">
+                        <h3>Calculator</h3>
+                        <p>A scientific calculator capable of performing standard arithmetic, powers, square root and logarithm calculations.</p>
+                        <div class="work-links">
+                            <a href="file:///C:/Users/gamer/OneDrive/Desktop/Projects(Code)/Calculator.html" target="_blank">Live Demo</a>
+                            <a href="https://arnavghagare.github.io/Calculator/Calculator.html" target="_blank">GitHub</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Project 2 -->
+                <div class="work-card glass reveal">
+                    <div class="work-card-image">
+                        <img src="C:\Users\gamer\OneDrive\Pictures\Screenshots\Parkour.jpg" alt="Project 2">
+                    </div>
+                    <div class="work-card-content">
+                        <h3>Parkour Game</h3>
+                        <p>This is an endless parkour game where a robot must jump over obstacles to achieve the highest score.</p>
+                        <div class="work-links">
+                            <a href="file:///C:/Users/gamer/OneDrive/Desktop/Projects(Code)/parkour.html" target="_blank">Live Demo</a>
+                            <a href="https://arnavghagare.github.io/Parkour/Parkour.html" target="_blank">GitHub</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Project 3 -->
+                <div class="work-card glass reveal">
+                    <div class="work-card-image">
+                        <img src="C:\Users\gamer\OneDrive\Pictures\Screenshots\Unit Converter.jpg" alt="Project 3">
+                    </div>
+                    <div class="work-card-content">
+                        <h3>Unit Converter</h3>
+                        <p>This web app is an interactive tool for real time conversion across three major unit families: Temperature, Distance and Weight.</p>
+                        <div class="work-links">
+                            <a href="file:///C:/Users/gamer/OneDrive/Desktop/Projects(Code)/Unit%20Converter.html" target="_blank">Live Demo</a>
+                            <a href="https://arnavghagare.github.io/Unit-Converter/Unit%20Converter.html" target="_blank">GitHub</a>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+        </section>
+
+        <!-- Gallery Section -->
+        <section id="gallery">
+            <h2 class="reveal">Image <span>Gallery</span></h2>
+            <div class="gallery-container reveal">
+                <!-- Add 6-8 images for your gallery -->
+                <div class="gallery-item">
+                    <img src="C:\Users\gamer\Downloads\Cochin Harbour - Kerala.jpg" alt="Gallery Image 1">
+                </div>
+                <div class="gallery-item">
+                    <img src="C:\Users\gamer\Downloads\illuminated-city-night.jpg" alt="Gallery Image 2">
+                </div>
+                <div class="gallery-item">
+                    <img src="C:\Users\gamer\OneDrive\Pictures\Cricket.jpg">
+                </div>
+                <div class="gallery-item">
+                    <img src="C:\Users\gamer\OneDrive\Pictures\Portfolio\WhatsApp Image 2025-11-01 at 12.03.29 AM.jpeg" alt="Gallery Image 4">
+                </div>
+                <div class="gallery-item">
+                    <img src="C:\Users\gamer\Downloads\pexels-vijit-bagh-3435480-5414583.jpg" alt="Gallery Image 5">
+                </div>
+                <div class="gallery-item">
+                    <img src="C:\Users\gamer\Downloads\pexels-buwanekab-748992.jpg" alt="Gallery Image 6">
+                </div>
+            </div>
+        </section>
+        
+        <!-- Game Section (Now Memory Match) -->
+        <section id="game">
+            <h2 class="reveal">Play a Game?</h2>
+            <div class="game-container glass reveal">
+                <p class="game-status" id="memory-status">Find the pairs!</p>
+                <div class="memory-grid" id="memory-grid">
+                    <!-- Cards will be generated here by JavaScript -->
+                </div>
+                <button class="btn game-reset" id="memory-reset">Restart Game</button>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact">
+            <h2 class="reveal">Contact <span>Me</span></h2>
+            <div class="contact-container glass reveal">
+                <p style="text-align: center; max-width: 100%;">Have a project in mind or just want to say hi? Feel free to reach out!</p>
+                <form action="#" class="contact-form">
+                    <div class="input-group">
+                        <div class="input-box">
+                            <input type="text" placeholder="Full Name" required>
+                        </div>
+                        <div class="input-box">
+                            <input type="email" placeholder="Email Address" required>
+                        </div>
+                    </div>
+                    <textarea name="message" cols="30" rows="10" placeholder="Your Message" required></textarea>
+                    <input type="submit" value="Send Message" class="btn">
+                </form>
+                
+                <div class="social-links">
+                    <!-- LinkedIn -->
+                    <a href="https://in.linkedin.com/in/arnav-ghagare-b99a253877" target="_blank" aria-label="LinkedIn">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+                    </a>
+                    <!-- GitHub -->
+                    <a href="https://github.com/arnavghagare" target="_blank" aria-label="GitHub">
+                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.91 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                    
+                
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>© 2025 Arnav Ghagare. All Rights Reserved.</p>
+    </footer>
+    
+    <!-- Gallery Lightbox Structure -->
+    <div class="lightbox" id="lightbox">
+        <span class="lightbox-close" id="lightbox-close">&times;</span>
+        <div class="lightbox-content">
+            <img src="" id="lightbox-img" alt="Enlarged gallery image">
+        </div>
+    </div>
+
+    <!-- This library powers the typing animation (loaded from the web) -->
+    <script src="https://unpkg.com/typed.js@2.1.0/dist/typed.umd.js"></script>
+
+    <!-- 
+      JavaScript Logic
+    -->
+    <script>
+        /* ============================================
+           JAVASCRIPT (script.js)
+           
+           This 'DOMContentLoaded' event listener is crucial.
+           It waits for the HTML to be fully loaded before 
+           trying to find and control any elements.
+           ============================================
+        */
+                
+        document.addEventListener('DOMContentLoaded', () => {
+
+            // --- 1. Navbar & Header Scroll Effect ---
+            const header = document.querySelector('.header');
+            const nav = document.querySelector('.navbar');
+            const menuIcon = document.querySelector('#menu-icon');
+            const themeToggle = document.getElementById('theme-toggle');
+
+            // --- 0. Theme Toggler ---
+            // Check for saved theme in localStorage
+            if (localStorage.getItem('theme') === 'light') {
+                document.body.classList.add('light-mode');
+            }
+            
+            // Add click listener for the toggle
+            if (themeToggle) {
+                themeToggle.onclick = () => {
+                    document.body.classList.toggle('light-mode');
+                    
+                    // Save preference to localStorage
+                    if (document.body.classList.contains('light-mode')) {
+                        localStorage.setItem('theme', 'light');
+                    } else {
+                        localStorage.removeItem('theme');
+                    }
+                };
+            }
+
+
+            // --- 1. Mobile Menu Toggle ---
+            if (menuIcon) {
+                menuIcon.onclick = () => {
+                    nav.classList.toggle('active');
+                };
+            }
+            
+            // Close mobile menu when a nav link is clicked
+            if (nav) {
+                nav.querySelectorAll('a').forEach(link => {
+                    link.onclick = () => {
+                         nav.classList.remove('active');
+                    }
+                });
+            }
+
+
+            // --- 2. Sticky Header on Scroll ---
+            window.addEventListener('scroll', () => {
+                if (header) {
+                    header.classList.toggle('scrolled', window.scrollY > 50);
+                }
+            });
+
+
+            // --- 3. Hero Section Typing Effect ---
+            // Check if the 'Typed' library is loaded
+            if (typeof Typed !== 'undefined') {
+                if (document.querySelector('.typing-text')) {
+                    const typed = new Typed('.typing-text', {
+                        strings: ['Web Developer', 'UI/UX Designer', 'Creative Coder', 'Problem Solver'],
+                        typeSpeed: 70,
+                        backSpeed: 50,
+                        backDelay: 1000,
+                        loop: true
+                    });
+                }
+            } else {
+                console.error('Typed.js library not loaded. Make sure you are connected to the internet.');
+            }
+
+
+            // --- 4. Scroll-based Fade-in Animations ---
+            const revealElements = document.querySelectorAll('.reveal');
+            
+            if ("IntersectionObserver" in window) {
+                const revealObserver = new IntersectionObserver((entries, observer) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('visible');
+                            // Stop observing once it's visible to prevent re-animation
+                            observer.unobserve(entry.target); 
+                        }
+                    });
+                }, {
+                    threshold: 0.1 // Trigger when 10% of the element is visible
+                });
+
+                revealElements.forEach(el => {
+                    revealObserver.observe(el);
+                });
+            } else {
+                // Fallback for older browsers (just make them visible)
+                revealElements.forEach(el => el.classList.add('visible'));
+            }
+
+            
+            // --- 5. Active Nav Link Highlighting on Scroll ---
+            const sections = document.querySelectorAll('section[id]');
+            const navLinks = document.querySelectorAll('.navbar a');
+            
+            if ("IntersectionObserver" in window && navLinks.length > 0) {
+                const sectionObserver = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            const id = entry.target.getAttribute('id');
+                            
+                            navLinks.forEach(link => {
+                                link.classList.remove('active');
+                                // Use querySelector to find the matching link
+                                const activeLink = document.querySelector(`.navbar a[href="#${id}"]`);
+                                if (activeLink) {
+                                    activeLink.classList.add('active');
+                                }
+                            });
+                        }
+                    });
+                }, {
+                    rootMargin: '-50% 0px -50% 0px' // Triggers when section is at 50% of viewport
+                });
+
+                sections.forEach(sec => {
+                    sectionObserver.observe(sec);
+                });
+            }
+
+            
+            // --- 6. Gallery Lightbox Logic ---
+            const galleryItems = document.querySelectorAll('.gallery-item');
+            const lightbox = document.getElementById('lightbox');
+            const lightboxImg = document.getElementById('lightbox-img');
+            const lightboxClose = document.getElementById('lightbox-close');
+            
+            if (lightbox && lightboxImg && lightboxClose && galleryItems.length > 0) {
+                galleryItems.forEach(item => {
+                    item.addEventListener('click', () => {
+                        const imgSrc = item.querySelector('img').src;
+                        lightboxImg.src = imgSrc;
+                        lightbox.classList.add('active');
+                    });
+                });
+                
+                // Function to close lightbox
+                const closeLightbox = () => {
+                    lightbox.classList.remove('active');
+                };
+                
+                lightboxClose.addEventListener('click', closeLightbox);
+                
+                // Also close lightbox when clicking on the dark background
+                lightbox.addEventListener('click', (e) => {
+                    if (e.target === lightbox) {
+                        closeLightbox();
+                    }
+                });
+                
+                // Close lightbox with Escape key
+                document.addEventListener('keydown', (e) => {
+                    if (e.key === 'Escape' && lightbox.classList.contains('active')) {
+                        closeLightbox();
+                    }
+                });
+            }
+
+            
+            // --- 7. Memory Match Game Logic (New Game) ---
+            const memoryGrid = document.getElementById('memory-grid');
+            const memoryStatus = document.getElementById('memory-status');
+            const memoryResetBtn = document.getElementById('memory-reset');
+            
+            // Only run game logic if all new game elements are present
+            if (memoryGrid && memoryStatus && memoryResetBtn) {
+                // Using emojis related to design/tech as card symbols
+                const cardSymbols = ['💻', '🎨', '🚀', '💡', '🌟', '🛠️', '💾', '🧩'];
+                let gameCards = [...cardSymbols, ...cardSymbols]; // Double the symbols for pairs
+                let flippedCards = [];
+                let matchedPairs = 0;
+                let lockBoard = false; // To prevent rapid clicking
+
+                // Fisher-Yates shuffle algorithm
+                function shuffle(array) {
+                    for (let i = array.length - 1; i > 0; i--) {
+                        const j = Math.floor(Math.random() * (i + 1));
+                        [array[i], array[j]] = [array[j], array[i]];
+                    }
+                    return array;
+                }
+
+                function initializeBoard() {
+                    gameCards = shuffle([...cardSymbols, ...cardSymbols]);
+                    memoryGrid.innerHTML = ''; // Clear board
+                    flippedCards = [];
+                    matchedPairs = 0;
+                    lockBoard = false;
+                    memoryStatus.textContent = "Find the pairs!";
+
+                    gameCards.forEach((symbol, index) => {
+                        const card = document.createElement('div');
+                        card.classList.add('memory-card');
+                        card.dataset.symbol = symbol;
+                        card.dataset.index = index;
+                        card.addEventListener('click', handleCardClick);
+                        
+                        // Card inner structure for the flip effect
+                        card.innerHTML = `
+                            <div class="card-inner">
+                                <div class="card-front">${symbol}</div>
+                                <div class="card-back">?</div>
+                            </div>
+                        `;
+                        memoryGrid.appendChild(card);
+                    });
+                }
+                
+                function handleCardClick(e) {
+                    if (lockBoard) return;
+                    
+                    // Traverse up to find the .memory-card element
+                    let clickedCard = e.currentTarget;
+                    
+                    if (clickedCard.classList.contains('flipped') || clickedCard.classList.contains('matched')) {
+                        return;
+                    }
+                    
+                    clickedCard.classList.add('flipped');
+                    flippedCards.push(clickedCard);
+
+                    if (flippedCards.length === 2) {
+                        lockBoard = true;
+                        checkForMatch();
+                    }
+                }
+
+                function checkForMatch() {
+                    const [card1, card2] = flippedCards;
+                    
+                    if (card1.dataset.symbol === card2.dataset.symbol) {
+                        // Match found!
+                        card1.classList.add('matched');
+                        card2.classList.add('matched');
+                        matchedPairs++;
+                        resetTurn();
+                        
+                        if (matchedPairs === cardSymbols.length) {
+                            memoryStatus.textContent = "You Won! 🎉 All pairs matched.";
+                        } else {
+                            memoryStatus.textContent = `Match! ${cardSymbols.length - matchedPairs} pairs left.`;
+                        }
+                    } else {
+                        // No match, flip back after a delay
+                        memoryStatus.textContent = "No match. Flipping back...";
+                        setTimeout(() => {
+                            card1.classList.remove('flipped');
+                            card2.classList.remove('flipped');
+                            resetTurn();
+                        }, 1000); // 1 second delay
+                    }
+                }
+
+                function resetTurn() {
+                    flippedCards = []; // Clear the array
+                    lockBoard = false;
+                    if (matchedPairs < cardSymbols.length) {
+                        memoryStatus.textContent = "Find the pairs!";
+                    }
+                }
+
+                memoryResetBtn.addEventListener('click', initializeBoard);
+                
+                // Initial game start
+                initializeBoard();
+            }
+
+        });
+    </script>
+    
+</body>
+</html>
